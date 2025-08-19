@@ -1,0 +1,18 @@
+# Node.js dependencies
+node_modules/
+
+# Log fajlovi
+*.log
+
+# Env fajlovi
+.env
+
+# VS Code folder
+.vscode/
+
+# Build folder za client
+client/build/
+
+# Mac/Windows sistemske stvari
+.DS_Store
+Thumbs.db
