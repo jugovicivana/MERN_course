@@ -2,7 +2,7 @@
   "_id": {
     "$oid": "5f15d8852a025143f9593a7c"
   },
-  "image": "https://upload.wikimedia.org/wikipedia/en/2/21/FIFA_20_Standard_Edition_Cover.jpg",
+  "image": "https://cdn.mobygames.com/covers/8213702-fifa-20-playstation-4-front-cover.jpg",
   "brand": "PS3",
   "price": 250,
   "rating": 1,
@@ -49,7 +49,8 @@
   },
   "countInStock": 10,
   "__v": 0
-},{
+},
+{
   "_id": {
     "$oid": "5f15d9b3e520d44421ed8e9d"
   },
@@ -66,11 +67,12 @@
   },
   "countInStock": 5,
   "__v": 0
-},{
+}
+,{
   "_id": {
     "$oid": "5f15da13e520d44421ed8e9e"
   },
-  "image": "https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTExL3AtNDY0LXRkLTA3MDAtYS1qb2IxNDA0LnBuZw.png",
+  "image":"https://img.freepik.com/free-psd/view-sofa-interior-design-decor_23-2151772696.jpg?semt=ais_hybrid&w=740&q=80",
   "brand": "Mobilix",
   "price": 1000,
   "rating": 5,
