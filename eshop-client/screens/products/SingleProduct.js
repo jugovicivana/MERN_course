@@ -13,7 +13,6 @@ const SingleProduct = (props) => {
   const [item, setItem] = useState(props.route.params.item);
   const [availability, setAvailability] = useState("");
   const dispatch = useDispatch();
-
   return (
     <View style={styles.container}>
       <ScrollView style={{ marginBottom: 80, padding: 5 }}>

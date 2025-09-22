@@ -17,6 +17,9 @@ import Main from "./navigators/Main";
 import ProductContainer from "./screens/products/ProductContainer";
 import Header from "./shared/Header";
 
+//toast
+import Toast from "react-native-toast-message";
+
 const theme = {
   ...DefaultTheme,
   colors: {
@@ -36,6 +39,7 @@ export default function App() {
           <SafeAreaView style={styles.container}>
             <Header />
             <Main />
+            <Toast />
           </SafeAreaView>
         </NavigationContainer>
       </PaperProvider>
@@ -46,7 +50,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FAF9EE",
+    backgroundColor: "#e4f7fbff",
     // alignItems: "center",
     // justifyContent: "center",
     paddingTop: StatusBar.currentHeight,

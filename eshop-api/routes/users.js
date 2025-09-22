@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 const { User } = require("../models/user");
 const bcrypt = require("bcryptjs");
-const jwt=require('jsonwebtoken')
+const jwt = require("jsonwebtoken");
 
 router.get(`/`, async (req, res) => {
-  const userList = await User.find().select('-passwordHash');
+  const userList = await User.find().select("-passwordHash");
 
   if (!userList) {
     res.status(500).json({ success: false });
@@ -14,7 +14,7 @@ router.get(`/`, async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  const user = await User.findById(req.params.id).select('-passwordHash');
+  const user = await User.findById(req.params.id).select("-passwordHash");
   if (!user) {
     res
       .status(500)
@@ -24,10 +24,13 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
+  console.log("req.body", req.body);
+  console.log("password", req.body.password);
+
   let user = new User({
     name: req.body.name,
     email: req.body.email,
-    passwordHash: bcrypt.hashSync(req.body.passwordHash, 10),
+    passwordHash: bcrypt.hashSync(req.body.password, 10),
     phone: req.body.phone,
     isAdmin: req.body.isAdmin,
     street: req.body.street,
@@ -46,37 +49,36 @@ router.post("/register", async (req, res) => {
   res.send(user);
 });
 
-router.post('/login', async (req, res)=>{
-  const user=await User.findOne({email:req.body.email});
-const secret=process.env.secret;
-  if(!user){
-    return res.status(400).send('The user not found')
+router.post("/login", async (req, res) => {
+  const user = await User.findOne({ email: req.body.email });
+  const secret = process.env.secret;
+  if (!user) {
+    return res.status(400).send("The user not found");
   }
 
-  if(user && bcrypt.compareSync(req.body.password, user.passwordHash))
-  {
-    const token=jwt.sign({
-      userId:user.id,
-      isAdmin:user.isAdmin
-    }, secret, 
-  {
-    expiresIn:'1d'
-  })
-    return res.status(200).send({user:user,token: token});
-  }
-  else return res.status(400).send('Password is wrong');
+  if (user && bcrypt.compareSync(req.body.password, user.passwordHash)) {
+    const token = jwt.sign(
+      {
+        userId: user.id,
+        isAdmin: user.isAdmin,
+      },
+      secret,
+      {
+        expiresIn: "1d",
+      }
+    );
+    return res.status(200).send({ user: user, token: token });
+  } else return res.status(400).send("Password is wrong");
+});
 
-})
-
-router.get('/get/count', async (req, res)=>{
-  const userCount=await User.countDocuments();
-  if(!userCount)
-    res.status(500).json({success:false})
+router.get("/get/count", async (req, res) => {
+  const userCount = await User.countDocuments();
+  if (!userCount) res.status(500).json({ success: false });
 
   res.send({
-    userCount:userCount
-  })
-})
+    userCount: userCount,
+  });
+});
 
 router.delete("/:id", (req, res) => {
   User.findByIdAndDelete(req.params.id)
@@ -95,6 +97,5 @@ router.delete("/:id", (req, res) => {
       return res.status(400).json({ success: false, error: err });
     });
 });
- 
 
 module.exports = router;

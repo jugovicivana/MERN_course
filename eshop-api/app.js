@@ -4,8 +4,8 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv/config");
-const authJwt=require('./helpers/jwt')
-const errorHandler=require('./helpers/error-handler')
+const authJwt = require("./helpers/jwt");
+const errorHandler = require("./helpers/error-handler");
 
 app.use(cors());
 // app.options("*", cors());
@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json()); //za koristenje objekata u json formatu
 app.use(morgan("tiny")); //za logovanje http zahtjeva u nekom formatu
 app.use(authJwt());
-app.use('/public/uploads', express.static(__dirname+'/public/uploads'))
+app.use("/public/uploads", express.static(__dirname + "/public/uploads"));
 app.use(errorHandler);
 
 //Routes
@@ -41,6 +41,7 @@ mongoose
     console.log(err);
   });
 
+//development
 app.listen(3000, () => {
   console.log("server is running http://localhost:3000");
 });

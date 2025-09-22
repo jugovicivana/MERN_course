@@ -16,3 +16,4 @@ client/build/
 # Mac/Windows sistemske stvari
 .DS_Store
 Thumbs.db
+eshop-api/public/uploads
