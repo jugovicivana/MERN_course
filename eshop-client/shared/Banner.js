@@ -58,7 +58,7 @@ const Banner = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FAF9EE",
+    backgroundColor: "#ffffff",
     paddingTop: 20,
   },
   swiper: {

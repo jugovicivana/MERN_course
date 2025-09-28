@@ -8,9 +8,11 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import HomeNavigator from "./HomeNavigator";
 import CartNavigator from "./CartNavigator";
 import UserNavigator from "./UserNavigator";
-
+import AdminNavigator from "./AdminNavigator";
 
 import CartIcon from "../shared/CartIcon";
+
+import { useAuth } from "../context/AuthContext";
 
 const Tab = createBottomTabNavigator();
 
@@ -30,6 +32,8 @@ const CustomTabButton = (props) => {
 };
 
 const Main = () => {
+  const { stateUser, dispatch } = useAuth();
+
   return (
     <View style={styles.container}>
       <View style={styles.contentContainer}>
@@ -40,7 +44,7 @@ const Main = () => {
             tabBarShowLabel: false,
             tabBarHideOnKeyboard: true,
             tabBarActiveTintColor: "#e91e63",
-            tabBarInactiveTintColor:'grey',
+            tabBarInactiveTintColor: "grey",
             tabBarStyle: {
               height: 70,
               backgroundColor: "#FFFFFF",
@@ -72,16 +76,19 @@ const Main = () => {
               tabBarButton: (props) => <CustomTabButton {...props} />,
             }}
           />
-          <Tab.Screen
-            name="Admin"
-            component={HomeNavigator}
-            options={{
-              tabBarIcon: ({ color }) => (
-                <Icon name="cog" color={color} size={26} />
-              ),
-              tabBarButton: (props) => <CustomTabButton {...props} />,
-            }}
-          />
+          {stateUser.user.isAdmin == true ? (
+            <Tab.Screen
+              name="Admin"
+              component={AdminNavigator}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <Icon name="cog" color={color} size={26} />
+                ),
+                tabBarButton: (props) => <CustomTabButton {...props} />,
+              }}
+            />
+          ) : null}
+
           <Tab.Screen
             name="User"
             component={UserNavigator}

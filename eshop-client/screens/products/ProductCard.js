@@ -4,6 +4,8 @@ import { Button } from "react-native-paper";
 
 import { addToCart } from "../../redux/slices/cartSlice";
 import { useDispatch } from "react-redux";
+import Toast from "react-native-toast-message";
+import EasyButton from "../../shared/StyledComponents/EasyButton";
 
 var { width } = Dimensions.get("window");
 const ProductCard = (props) => {
@@ -21,7 +23,7 @@ const ProductCard = (props) => {
             : "https://cdn.pixabay.com/photo/2012/04/01/17/29/box-23649_960_720.png",
         }}
       />
-      <View style={styles.card} />
+
       <Text style={styles.title}>
         {name.length > 15 ? name.substring(0, 15 - 3) + "..." : name}
       </Text>
@@ -29,16 +31,22 @@ const ProductCard = (props) => {
 
       {countInStock > 0 ? (
         <View style={{ marginBottom: 60 }}>
-          <Button
-            mode="contained"
-            buttonColor="green"
-            style={{ marginTop: 10 }}
+          <EasyButton
+            primary
+            medium
+            style={{ marginTop: 10, marginBottom: 10 }}
             onPress={() => {
-              dispatch(addToCart({ quantity: 1, product:props}));
+              dispatch(addToCart({ quantity: 1, product: props }));
+              Toast.show({
+                topOffset: 60,
+                type: "success",
+                text1: `${name} added to Cart`,
+                text2: "Go to your cart to complete order",
+              });
             }}
           >
-            Add
-          </Button>
+            <Text style={{ color: "white" }}>Add</Text>
+          </EasyButton>
         </View>
       ) : (
         <Text style={{ marginTop: 20 }}>Currently unavailable</Text>
@@ -62,12 +70,24 @@ const styles = StyleSheet.create({
     borderColor: "#FFDBB6",
     borderWidth: 1,
   },
+  // image: {
+  //   width: width / 2 - 20 - 10,
+  //   height: width / 2 - 20 - 30,
+  //   backgroundColor: "transparent",
+  //   position: "absolute",
+  //   top: -45,
+  // },
+  //  imageContainer: {
+  //   width: '100%',
+  //   height: width / 2 - 20 - 30,
+  //   borderRadius: 10,
+  //   overflow: 'hidden', // bitno da slika ne izlazi vani
+  //   backgroundColor: '#f5f5f5', // opcionalno
+  //   marginBottom: 10,
+  // },
   image: {
-    width: width / 2 - 20 - 10,
-    height: width / 2 - 20 - 30,
-    backgroundColor: "transparent",
-    position: "absolute",
-    top: -45,
+    width: "100%",
+    height: 100,
   },
   card: {
     marginBottom: 10,

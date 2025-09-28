@@ -11,6 +11,7 @@ import {
 } from "react-native-paper";
 import { useDispatch } from "react-redux";
 import { clearCart } from "../../../redux/slices/cartSlice";
+import EasyButton from "../../../shared/StyledComponents/EasyButton";
 
 var { width, height } = Dimensions.get("window");
 const Confirm = (props) => {
@@ -58,8 +59,10 @@ const Confirm = (props) => {
             })}
           </View>
         ) : null}
-        <View style={{ alignItems: "center", margin: 20 }}>
-          <Button onPress={() => confirmOrder()}>Place Order</Button>
+        <View style={{ alignItems: "center", margin: 20, width:'100%' }}>
+          <EasyButton secondary large onPress={() => confirmOrder()}>
+            <Text style={{ color: "white" }}>Place Order</Text>
+          </EasyButton>
         </View>
       </View>
     </ScrollView>

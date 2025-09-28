@@ -9,6 +9,8 @@ import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
 import Toast from "react-native-toast-message";
 
+import EasyButton from "../../shared/StyledComponents/EasyButton";
+
 const Register = (props) => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -97,30 +99,15 @@ const Register = (props) => {
         />
         <View style={styles.buttonGroup}>
           {error ? <Error message={error} /> : null}
-          <Button
-            mode="contained"
-            onPress={() => register()}
-            style={styles.registerButton}
-          >
-            Register
-          </Button>
+          <EasyButton primary large onPress={() => register()}>
+            <Text style={{ color: "white" }}>Register</Text>
+          </EasyButton>
         </View>
         <View style={styles.buttonGroup}>
-          <Button
-            mode="text"
-            onPress={() => props.navigation.navigate("Login")}
-            style={styles.backButton}
-            labelStyle={styles.backButtonText}
-          >
-            Back to Login
-          </Button>
+          <EasyButton secondary large onPress={() => props.navigation.navigate("Login")}>
+            <Text style={{ color: "white" }}> Back to Login</Text>
+          </EasyButton>
         </View>
-        {/* <View style={[{ marginTop: 40 }, styles.buttonGroup]}>
-          <Text style={styles.middleText}>Don't have an account yet?</Text>
-          <Button onPress={() => props.navigation.navigate("Register")}>
-            Register
-          </Button>
-        </View> */}
       </FormContainer>
     </KeyboardAwareScrollView>
   );
@@ -131,18 +118,7 @@ const styles = StyleSheet.create({
     width: "80%",
     alignItems: "center",
   },
-  registerButton: {
-    // width: "100%",
-    paddingVertical: 5,
-    marginTop: 10,
-  },
-  backButton: {
-    // width: "100%",
-    marginTop: 10,
-  },
-  backButtonText: {
-    color: "#6D94C5", // Boja teksta
-  },
+ 
 });
 
 export default Register;

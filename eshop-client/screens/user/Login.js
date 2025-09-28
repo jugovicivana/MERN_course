@@ -5,11 +5,21 @@ import Input from "../../shared/form/Input";
 import Error from "../../shared/Error";
 import { Button, Text } from "react-native-paper";
 import Toast from "react-native-toast-message";
+import { useAuth } from "../../context/AuthContext";
+import { loginUser } from "../../context/actions/Auth.actions";
+import EasyButton from "../../shared/StyledComponents/EasyButton";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const { stateUser, dispatch } = useAuth();
+
+  useEffect(() => {
+    if (stateUser.isAuthenticated === true) {
+      props.navigation.navigate("User Profile");
+    }
+  }, [stateUser.isAuthenticated]);
 
   const handleSubmit = () => {
     const user = {
@@ -21,6 +31,7 @@ const Login = (props) => {
     } else {
       setError();
       console.log("success");
+      loginUser(user, dispatch);
     }
   };
 
@@ -44,22 +55,21 @@ const Login = (props) => {
         />
         <View style={StyleSheet.buttonGroup}>
           {error ? <Error message={error} /> : null}
-          <Button mode="contained" onPress={() => handleSubmit()}>
-            Login
-          </Button>
+          <EasyButton large primary onPress={() => handleSubmit()}>
+            <Text style={{ color: "white" }}>Login</Text>
+          </EasyButton>
         </View>
         <View style={[{ marginTop: 40 }, styles.buttonGroup]}>
           <Text variant="labelSmall" style={styles.middleText}>
             Don't have an account yet?
           </Text>
-          <Button
-            mode="text"
+          <EasyButton
+            large
+            secondary
             onPress={() => props.navigation.navigate("Register")}
-            style={styles.backButton}
-            labelStyle={styles.backButtonText}
           >
-            Register
-          </Button>
+            <Text style={{ color: "white" }}>Register</Text>
+          </EasyButton>
         </View>
       </FormContainer>
     </View>

@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { View, ScrollView } from "react-native";
-import { Appbar, Card, List, RadioButton, Text, Button } from "react-native-paper";
+import {
+  Appbar,
+  Card,
+  List,
+  RadioButton,
+  Text,
+  Button,
+} from "react-native-paper";
 
 import { Dropdown } from "react-native-element-dropdown";
 import Icon from "react-native-vector-icons/FontAwesome";
+
+import EasyButton from "../../../shared/StyledComponents/EasyButton";
 
 const methods = [
   { name: "Cash on Delivery", value: 1 },
@@ -22,9 +31,8 @@ const paymentCards = [
 ];
 
 const Payment = (props) => {
-  // console.log(props)
   const order = props.route.params;
-  console.log(order)
+  console.log(order);
   const [selected, setSelected] = useState();
   const [card, setCard] = useState();
 
@@ -63,11 +71,8 @@ const Payment = (props) => {
             </View>
             <Dropdown
               style={{ marginTop: 20, padding: 10 }}
-              // placeholderStyle={styles.placeholderStyle}
-              // selectedTextStyle={styles.selectedTextStyle}
-              // itemTextStyle={styles.itemTextStyle}
               data={paymentCards}
-              labelField="name" // mora biti isti kao u objektima
+              labelField="name"
               valueField="value"
               placeholder="Select"
               value={card}
@@ -76,11 +81,12 @@ const Payment = (props) => {
           </>
         ) : null}
         <View style={{ marginTop: 60, alignSelf: "center" }}>
-          <Button
+          <EasyButton
+          medium secondary
             onPress={() => props.navigation.navigate("Confirm", { order })}
           >
-            Confirm
-          </Button>
+            <Text style={{ color: "white" }}>Confirm</Text>
+          </EasyButton>
         </View>
       </ScrollView>
     </View>

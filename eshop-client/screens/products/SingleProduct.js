@@ -1,18 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/slices/cartSlice";
-import { View, FlatList, StyleSheet, ScrollView } from "react-native";
-import { Image, Dimensions } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
+import { Image } from "react-native";
 import { Button } from "react-native-paper";
-import { Appbar, Searchbar, IconButton, Text } from "react-native-paper";
-import SearchedProduct from "./SearchedProducts";
-import { MD3Colors } from "react-native-paper";
-import Banner from "../../shared/Banner";
+import { Text } from "react-native-paper";
+import Toast from "react-native-toast-message";
+import EasyButton from "../../shared/StyledComponents/EasyButton";
+import TrafficLight from "../../shared/StyledComponents/TrafficLight";
+import symbolicateStackTrace from "react-native/Libraries/Core/Devtools/symbolicateStackTrace";
 
 const SingleProduct = (props) => {
   const [item, setItem] = useState(props.route.params.item);
-  const [availability, setAvailability] = useState("");
+  const [availability, setAvailability] = useState(null);
+  const [availabilityText, setAvailabilityText] = useState("");
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (props.route.params.item.countInStock == 0) {
+      setAvailability(<TrafficLight unavailable></TrafficLight>);
+      setAvailabilityText("Unavailable");
+    } else if (props.route.params.item.countInStock <= 5) {
+      setAvailability(<TrafficLight limited></TrafficLight>);
+      setAvailabilityText("Limited");
+    } else {
+      setAvailability(<TrafficLight available></TrafficLight>);
+      setAvailabilityText("Available");
+    }
+
+    return ()=>{
+      setAvailability(null);
+      setAvailabilityText("");
+    }
+  }, []);
   return (
     <View style={styles.container}>
       <ScrollView style={{ marginBottom: 80, padding: 5 }}>
@@ -36,19 +57,34 @@ const SingleProduct = (props) => {
             {item.brand}
           </Text>
         </View>
+        <View style={styles.availabilityContainer}>
+          <View style={styles.availability}>
+            <Text style={{marginRight:10}}> Availability: {availabilityText}</Text>
+            {availability}
+          </View>
+          <Text>{item.description}</Text>
+        </View>
       </ScrollView>
       <View style={styles.bottomContainer}>
         <View>
           <Text style={styles.price}>$ {item.price}</Text>
         </View>
         <View>
-          <Button
+          <EasyButton
+            primary
+            medium
             onPress={() => {
               dispatch(addToCart({ quantity: 1, product: item }));
+              Toast.show({
+                topOffset: 60,
+                type: "success",
+                text1: `${item.name} added to Cart`,
+                text2: "Go to your cart to complete order",
+              });
             }}
           >
-            Add
-          </Button>
+            <Text style={{ color: "white" }}>Add</Text>
+          </EasyButton>
         </View>
       </View>
     </View>
@@ -100,6 +136,14 @@ const styles = StyleSheet.create({
     margin: 20,
     color: "red",
   },
+  availabilityContainer:{
+    marginBottom:20,
+    alignItems:'center',
+  },
+  availability:{
+    flexDirection:'row',
+    marginBottom:10
+  }
 });
 
 export default SingleProduct;

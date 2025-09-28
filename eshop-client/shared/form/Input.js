@@ -22,10 +22,10 @@ const Input = (props) => {
 const styles = StyleSheet.create({
   input: {
     fontSize: 14,
-    width: "80%",
+    width: "100%",
     height: 60,
     backgroundColor: "white",
-    margin: 10,
+    marginVertical: 10,
     padding: 10,
     borderRadius: 20,
     borderWidth: 1,

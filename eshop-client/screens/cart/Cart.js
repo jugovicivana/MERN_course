@@ -1,4 +1,3 @@
-// screens/cart/Cart.js
 import React from "react";
 import { Text, Button } from "react-native-paper";
 import {
@@ -13,6 +12,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart, removeFromCart } from "../../redux/slices/cartSlice";
 import CartItem from "./CartItem";
+import EasyButton from "../../shared/StyledComponents/EasyButton";
 
 var { height, width } = Dimensions.get("window");
 
@@ -68,29 +68,21 @@ const Cart = (props) => {
           <View style={styles.bottomContainer}>
             <Text style={styles.price}>${total.toFixed(2)}</Text>
             <View style={styles.buttonsContainer}>
-              <Button
-                mode="outlined"
-                onPress={() => dispatch(clearCart())}
-                style={styles.button}
-              >
-                Clear Cart
-              </Button>
-              <Button
-                mode="contained"
+              <EasyButton danger medium onPress={() => dispatch(clearCart())}>
+                <Text style={{ color: "white" }}> Clear Cart</Text>
+              </EasyButton>
+              <EasyButton
+                medium
+                primary
                 onPress={() => {
-                  console.log(
-                    "++++++++++++++++OVDJE GLEDAJ - CART++++++++++++++"
-                  );
-                  console.log(cartItems);
                   props.navigation.navigate("Checkout", {
                     screen: "Shipping",
                     params: { cartItems: cartItems },
                   });
                 }}
-                style={styles.button}
               >
-                Checkout
-              </Button>
+                <Text style={{ color: "white" }}> Checkout</Text>
+              </EasyButton>
             </View>
           </View>
         </>
@@ -117,7 +109,7 @@ const Cart = (props) => {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    backgroundColor: "#FAF9EE",
+    backgroundColor: "white",
   },
   title: {
     alignSelf: "center",
@@ -158,9 +150,7 @@ const styles = StyleSheet.create({
     // justifyContent: 'space-between',
     gap: 10,
   },
-  button: {
-    minWidth: 120,
-  },
+
   hiddenItem: {
     flex: 1,
     justifyContent: "flex-end",

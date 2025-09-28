@@ -108,9 +108,9 @@ const ProductContainer = (props) => {
   return (
     <>
       {loading == false ? (
-        <View style={{ flex: 1, backgroundColor: "#FAF9EE" }}>
+        <View style={{ flex: 1, backgroundColor: "#ffffff" }}>
           <Appbar.Header
-            style={{ marginTop: 0, paddingTop: 0, backgroundColor: "#FAF9EE" }}
+            style={{ marginTop: 0, paddingTop: 0, backgroundColor: "#ffffff" }}
             statusBarHeight={1}
           >
             <Searchbar
@@ -140,7 +140,7 @@ const ProductContainer = (props) => {
               productsFiltered={productsFiltered}
             />
           ) : (
-            <ScrollView contentContainerStyle={{ paddingBottom: 150 }}>
+            <ScrollView contentContainerStyle={{ paddingBottom: 150, backgroundColor:'white' }}>
               <View>
                 <View>
                   <Banner />
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
     // flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
-    backgroundColor: "#FAF9EE",
+    backgroundColor: "#ffffff",
     //height: height,
     // marginBottom:50
     // justifyContent: "space-between", // opciono da kartice stoje lepše
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 10,
     marginRight: 10,
-    backgroundColor: "#FFDBB6",
+    backgroundColor: "#ECEEDF",
     // elevation: 0, // uklanja senku ako je potrebno
   },
   center: {

@@ -6,7 +6,8 @@ import FormContainer from "../../../shared/form/FormContainer";
 import Input from "../../../shared/form/Input";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Dropdown } from "react-native-element-dropdown";
-
+import EasyButton from "../../../shared/StyledComponents/EasyButton";
+import { Text } from "react-native-paper";
 import { useDispatch, useSelector } from "react-redux"; //da imamo pristup store-u
 
 var { height, width } = Dimensions.get("window");
@@ -27,9 +28,6 @@ const Checkout = (props) => {
     value: c.name,
   }));
 
-  // console.log("++++++++++++++++OVDJE GLEDAJ - CHECKOUT++++++++++++++");
-  // console.log(props);
-
   useEffect(() => {
     setOrderItems(props.route?.params?.cartItems);
     return () => {
@@ -48,7 +46,6 @@ const Checkout = (props) => {
       zip: zipCode,
     };
 
-    console.log(order);
     props.navigation.navigate("Payment", { order: order });
   };
 
@@ -57,60 +54,80 @@ const Checkout = (props) => {
       viewIsInsideTabBar={true}
       extraHeight={200}
       enableOnAndroid={true}
-      style={{ backgroundColor: "white" }}
+      style={{ backgroundColor: "white", width:'100%' }}
     >
-      <FormContainer title={"Shipping Address"}>
-        <Input
-          placeholder={"Phone"}
-          name={"phone"}
-          value={phone}
-          keyboardType={"numeric"}
-          onChangeText={(text) => setPhone(text)}
-        />
-        <Input
-          placeholder={"Shipping Address 1"}
-          name={"ShippingAddress1"}
-          value={address}
-          onChangeText={(text) => setAddress(text)}
-        />
-        <Input
-          placeholder={"Shipping Address 2"}
-          name={"ShippingAddress2"}
-          value={address2}
-          onChangeText={(text) => setAddress2(text)}
-        />
-        <Input
-          placeholder={"City"}
-          name={"City"}
-          value={city}
-          onChangeText={(text) => setCity(text)}
-        />
-        <Input
-          placeholder={"Zip Code"}
-          name={"ZipCode"}
-          value={zipCode}
-          keyboardType={"numeric"}
-          onChangeText={(text) => setZipCode(text)}
-        />
-        <Dropdown
-          style={styles.dropdown}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          itemTextStyle={styles.inputSelect}
-          data={data}
-          labelField="label"
-          valueField="value"
-          placeholder="Select your country"
-          value={country}
-          onChange={(item) => setCountry(item.value)}
-          containerStyle={{ marginBottom: 20 }}
-        />
-        <View style={{ width: "80%", alignItems: "center" }}>
-          <Button mode="contained" onPress={() => checkout()}>
-            Confirm
-          </Button>
-        </View>
-      </FormContainer>
+        <FormContainer title={"Shipping Address"}>
+                  <View style={styles.label}>
+          
+          <Input
+            placeholder={"Phone"}
+            name={"phone"}
+            value={phone}
+            keyboardType={"numeric"}
+            onChangeText={(text) => setPhone(text)}
+          />
+          </View>
+                  <View style={styles.label}>
+          
+          <Input
+            placeholder={"Shipping Address 1"}
+            name={"ShippingAddress1"}
+            value={address}
+            onChangeText={(text) => setAddress(text)}
+          />
+          </View>
+                  <View style={styles.label}>
+          
+          <Input
+            placeholder={"Shipping Address 2"}
+            name={"ShippingAddress2"}
+            value={address2}
+            onChangeText={(text) => setAddress2(text)}
+          />
+          </View>
+                  <View style={styles.label}>
+          
+          <Input
+            placeholder={"City"}
+            name={"City"}
+            value={city}
+            onChangeText={(text) => setCity(text)}
+          />
+          </View>
+                  <View style={styles.label}>
+          
+          <Input
+            placeholder={"Zip Code"}
+            name={"ZipCode"}
+            value={zipCode}
+            keyboardType={"numeric"}
+            onChangeText={(text) => setZipCode(text)}
+          />
+          </View>
+                  <View style={styles.label}>
+          
+          <Dropdown
+            style={styles.dropdown}
+            placeholderStyle={styles.placeholderStyle}
+            selectedTextStyle={styles.selectedTextStyle}
+            itemTextStyle={styles.inputSelect}
+            data={data}
+            labelField="label"
+            valueField="value"
+            placeholder="Select your country"
+            value={country}
+            onChange={(item) => setCountry(item.value)}
+            containerStyle={{ marginBottom: 20 }}
+          />
+          </View>
+          <View
+            style={{ width: "80%", alignItems: "center", marginBottom: 80 }}
+          >
+            <EasyButton medium secondary onPress={() => checkout()}>
+              <Text style={{ color: "white" }}>Confirm</Text>
+            </EasyButton>
+          </View>
+        </FormContainer>
     </KeyboardAwareScrollView>
   );
 };
@@ -127,14 +144,14 @@ const styles = StyleSheet.create({
   container: { paddingHorizontal: 10, margin: 10 },
   dropdown: {
     height: 60,
-    width: "80%",
+    width: "100%",
     borderRadius: 8,
     borderRadius: 20,
     borderWidth: 1,
     borderColor: "#f9bf85ff",
 
     backgroundColor: "white",
-    margin: 10,
+    marginVertical: 10,
     padding: 10,
     paddingHorizontal: 8,
     fontSize: 4,
@@ -142,6 +159,10 @@ const styles = StyleSheet.create({
   placeholderStyle: { color: "#999", fontSize: 14 },
   selectedTextStyle: { color: "#000", fontSize: 14 },
   inputSelect: { color: "#000", fontSize: 14 },
+   label: {
+    width: "80%",
+    marginTop: 10,
+  },
 });
 
 export default Checkout;

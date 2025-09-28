@@ -20,6 +20,9 @@ import Header from "./shared/Header";
 //toast
 import Toast from "react-native-toast-message";
 
+//context API
+import AuthProvider from "./context/AuthProvider";
+
 const theme = {
   ...DefaultTheme,
   colors: {
@@ -33,17 +36,19 @@ LogBox.ignoreAllLogs(true);
 
 export default function App() {
   return (
-    <Provider store={store}>
-      <PaperProvider theme={theme}>
-        <NavigationContainer>
-          <SafeAreaView style={styles.container}>
-            <Header />
-            <Main />
-            <Toast />
-          </SafeAreaView>
-        </NavigationContainer>
-      </PaperProvider>
-    </Provider>
+    <AuthProvider>
+      <Provider store={store}>
+        <PaperProvider theme={theme}>
+          <NavigationContainer>
+            <SafeAreaView style={styles.container}>
+              <Header />
+              <Main />
+              <Toast />
+            </SafeAreaView>
+          </NavigationContainer>
+        </PaperProvider>
+      </Provider>
+    </AuthProvider>
   );
 }
 
